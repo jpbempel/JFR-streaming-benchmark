@@ -13,11 +13,11 @@ then
   cd $BASEDIR
   mkdir jdk
   cd jdk
-  curl -OL https://github.com/AdoptOpenJDK/openjdk14-binaries/releases/download/jdk-14.0.1%2B7/OpenJDK14U-jdk_x64_linux_hotspot_14.0.1_7.tar.gz
-  tar xzvf OpenJDK14U-jdk_x64_linux_hotspot_14.0.1_7.tar.gz
+  curl -OL https://builds.shipilev.net/openjdk-jdk15/openjdk-jdk15-latest-linux-x86_64-release.tar.xz
+  tar xJvf openjdk-jdk15-latest-linux-x86_64-release.tar.xz
   popd
 fi
 echo "Building spring-petclinic"
 cd $BASEDIR/JFR-streaming-benchmark
-export JAVA_HOME=$BASEDIR/jdk/jdk-14.0.1+7
-./mvnw package -DskipTests=true
+export JAVA_HOME=$BASEDIR/jdk/jdk
+./mvnw spring-javaformat:apply package -DskipTests=true

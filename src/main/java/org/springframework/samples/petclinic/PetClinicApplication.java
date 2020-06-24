@@ -18,6 +18,8 @@ package org.springframework.samples.petclinic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.event.ContextStartedEvent;
+import org.springframework.context.event.EventListener;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
@@ -25,6 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.LockSupport;
+import javax.annotation.PostConstruct;
 
 /**
  * PetClinic Spring Boot Application.
@@ -50,6 +53,13 @@ public class PetClinicApplication {
 		return fibo(n - 1);
 	}
 
+	@PostConstruct
+	private void init() {
+		System.out.println("PostConstruct");
+		if (Boolean.getBoolean("jfrStreaming")) {
+			JFRStreamConsumer.start();
+		}
+	}
 
 	public static void main(String[] args) {
 		if (NB_THREADS > 0) {
@@ -60,9 +70,6 @@ public class PetClinicApplication {
 			}
 			System.out.println("Thread created");
 		}
-		if (Boolean.getBoolean("jfrStreaming")) {
-		    JFRStreamConsumer.start();
-        }
 		SpringApplication.run(PetClinicApplication.class, args);
 	}
 

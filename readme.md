@@ -4,6 +4,26 @@ Illustrate the following [blog post]()
 
 This is based on Spring PetClinic Sample application you can find [here](https://github.com/spring-projects/spring-petclinic)
 
+To replicate the benchmark:
+
+```
+git clone https://github.com/jpbempel/JFR-streaming-benchmark.git
+cd JFR-streaming-benchmark/scripts
+./initworkspace.sh
+./bench.sh
+```
+
+3 flavors (tags) for the benchmark:
+ - `none` (regular application)
+ - `jfr` (with JFR recording enabled since the start)
+ - `jfr-streaming` (code inside application that subscribe to all events from "profile" template and serialized in JSON-like form on disk)
+
+Result files are written in current directory:
+ - `cpu_ticks_$TAG-1.txt`: CPU ticks consumed from the start of the application
+ - `gc_$TAG.log`: GC logs
+ - `$TAG.csv`: percentiles (10,20,30,40,50,60,70,80,90,95,99)
+ - `rss-$TAG-1.txt`: RSS over time every second 
+
 # Spring PetClinic Sample Application
 Deploy this sample application to Pivotal Web Services:
 
