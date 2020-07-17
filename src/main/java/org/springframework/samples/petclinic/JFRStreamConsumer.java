@@ -47,7 +47,7 @@ public class JFRStreamConsumer {
 	private void onEvent(RecordedEvent event) {
 		String serializedEvent = null;
 		try {
-			serializedEvent = String.valueOf(event.getThread());
+			serializedEvent = String.valueOf(event);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
